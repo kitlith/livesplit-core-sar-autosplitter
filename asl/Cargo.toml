@@ -1,0 +1,9 @@
+[package]
+name = "asl"
+version = "0.1.0"
+authors = ["Christopher Serr <christopher.serr@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+asl-derive = { path = "asl-derive" }
+log = "0.4.6"
