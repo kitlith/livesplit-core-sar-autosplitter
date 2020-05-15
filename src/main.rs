@@ -16,6 +16,8 @@ pub extern "C" fn configure() {
 
     // workaround for livesplit-core not detecting disconnect unless there's a pointer path
     // we don't even read/use this path, but livesplit-core does so automatically before ticking.
+    // unfortunately this workaround doesn't seem to work, and i don't feel like investigating why
+    // atm.
     asl::push_pointer_path(process_name, &[0], asl::PointerKind::U32);
 }
 

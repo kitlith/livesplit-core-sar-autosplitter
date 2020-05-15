@@ -1,0 +1,37 @@
+From b7238606c12a548dcc19ab767631e25fa97927a7 Mon Sep 17 00:00:00 2001
+From: Kitlith <kitlith@kitl.pw>
+Date: Fri, 15 May 2020 13:56:30 -0700
+Subject: [PATCH] Return if there's actually been an error.
+
+Used by my SAR autosplitter. TODO: is this actually necessary?
+---
+ crates/livesplit-auto-splitting/src/environment.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/crates/livesplit-auto-splitting/src/environment.rs b/crates/livesplit-auto-splitting/src/environment.rs
+index 6cbae56..eedfabf 100644
+--- a/crates/livesplit-auto-splitting/src/environment.rs
++++ b/crates/livesplit-auto-splitting/src/environment.rs
+@@ -158,16 +158,16 @@ impl Environment {
+         Ok(())
+     }
+ 
+-    pub fn read_into_buf(&mut self, address: i64, buf: i32, buf_len: i32) -> Result<(), Trap> {
++    pub fn read_into_buf(&mut self, address: i64, buf: i32, buf_len: i32) -> Result<i32, Trap> {
+         if let Some(process) = &self.process {
+             if process
+                 .read_buf(address as u64, get_bytes(&mut self.memory, buf, buf_len)?)
+                 .is_err()
+             {
+-                // TODO: Handle error
++                return Ok(0);
+             }
+         }
+-        Ok(())
++        Ok(1)
+     }
+ 
+     pub fn set_variable(
+-- 
+2.26.2
+
