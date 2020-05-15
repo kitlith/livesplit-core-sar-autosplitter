@@ -5,10 +5,18 @@ use parking_lot::{Mutex, MutexGuard};
 // #[Process = "hl2.exe"]
 // pub struct EmptyState {}
 
+// The current iteration of the autosplitter doesn't support multiple process names, so you'll have
+// to change this if the name is different. The current name is for Source Unpack under Wine.
+const process_name: &'static str = "hl2.exe";
+
 #[no_mangle]
 pub extern "C" fn configure() {
-    asl::set_process_name("hl2.exe");
-    asl::set_tick_rate(500.0); // kinda arbitrary
+    asl::set_process_name(process_name);
+    asl::set_tick_rate(100.0); // kinda arbitrary
+
+    // workaround for livesplit-core not detecting disconnect unless there's a pointer path
+    // we don't even read/use this path, but livesplit-core does so automatically before ticking.
+    asl::push_pointer_path(process_name, &[0], asl::PointerKind::U32);
 }
 
 struct PortalState {
