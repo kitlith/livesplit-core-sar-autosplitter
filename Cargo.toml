@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 asl = { path = "asl" }
-parking_lot = { version = "0.7.1", features = ["nightly"] }
+static_locks = "0.1.0"
 
 [profile.release]
 lto = true

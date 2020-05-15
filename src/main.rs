@@ -1,5 +1,5 @@
 use asl::Address;
-use parking_lot::{Mutex, MutexGuard};
+use static_locks::{Mutex, MutexGuard};
 
 // #[derive(ASLState)]
 // #[Process = "hl2.exe"]
