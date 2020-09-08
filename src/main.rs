@@ -107,7 +107,7 @@ fn find_interface() -> Option<Address> {
 }
 
 #[no_mangle]
-pub extern "C" fn disconnected() {
+pub extern "C" fn unhooked() {
     *STATE.lock() = PortalState::new();
 }
 
